@@ -1,0 +1,83 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <title>这该死的胜负欲</title>
+    <link rel="stylesheet" href="dist/bootstrap.min.css">
+    <link rel="stylesheet" href="src/style.css">
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="images/badminton.png" alt="" width="30" height="30" class="d-inline-block align-top">
+                羽毛球大战
+            </a>
+        </div>
+    </nav>
+    <div class="container p-3">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <div class="d-flex flex-row align-items-center fs-3">
+                <span class="m-3">用时:</span><span id="hour">10</span>:<span id="min">24</span>:<span id="sec">00</span>
+            </div>
+            <div class="row row-cols-2 m-3">
+                <div class="col border border-success d-flex flex-row justify-content-between p-3">
+                    <label>选手1号</label>
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                </div>
+                <div class="col border border-success d-flex flex-row justify-content-between p-3">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                    <label>选手1号</label>
+                </div>
+                <div class="col border border-success d-flex flex-row justify-content-between p-3">
+                    <label>选手1号</label>
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                </div>
+                <div class="col border border-success d-flex flex-row justify-content-between p-3">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                    <label>选手1号</label>
+                </div>
+            </div>
+            <div id="point" class="d-flex flex-row align-items-center m-3">
+                <span name="pointBoard_PlayerA" class="card p-3 text-primary">10</span>
+                <span class="m-3">:</span>
+                <span name="pointBoard_PlayerB" class="card p-3 text-danger">24</span>
+            </div>
+            <div>
+
+                <button id="btn_endGame" class="btn btn-outline-dark">结束比赛</button>
+                <button id="btn_maxBoard" class="btn btn-outline-danger m-3">放大</button>
+            </div>
+        </div>
+    </div>
+    <div id="big_pointBoard" class="d-flex flex-column justify-content-between align-items-center d-none">
+        <button id="btn_minBoard" type="button" class="btn-close border align-self-start" aria-label="Close"></button>
+
+        <span name="pointBoard_PlayerB"
+            class="card p-3 text-danger rotate flex-fill d-flex align-items-center justify-content-center"
+            style="font-size:10rem">24</span>
+        <span class="m-3" style="font-size:5rem">··</span>
+        <span name="pointBoard_PlayerA"
+            class="card p-3 text-primary rotate flex-fill d-flex align-items-center justify-content-center"
+            style="font-size:10rem">10</span>
+    </div>
+    <footer class="navbar navbar-light justify-content-end">
+        <a class="navbar-brand" href="#">
+            @wxjing
+        </a>
+    </footer>
+
+
+    <script src="dist/jquery-1.11.3.min.js"></script>
+    <script src="dist/popper-1.14.7.min.js"></script>
+    <script src="dist/bootstrap.min.js"></script>
+    <script src="src/action.js"></script>
+</body>
+
+</html>
