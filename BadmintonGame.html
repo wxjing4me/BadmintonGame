@@ -1,0 +1,387 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  <title>这该死的胜负欲</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <style>
+    .container {
+      padding: 0;
+      margin: 0;
+      height: 80vh;
+    }
+
+    #point {
+      font-size: 5rem;
+    }
+
+    #big_pointBoard {
+      position: absolute;
+      top: 0;
+      height: 0;
+      height: 100vh;
+      width: 100vw;
+      z-index: 99;
+      background-color: white;
+    }
+
+    #big_pointBoard span {
+      font-size: 10rem;
+    }
+
+    .rotate {
+      -webkit-transform: rotate(-90deg);
+      -moz-transform: rotate(-90deg);
+      transform: rotate(-90deg);
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="images/badminton.png" alt="" width="30" height="30" class="d-inline-block align-top">
+        羽毛球大战 - 这该死的胜负欲！
+      </a>
+    </div>
+  </nav>
+
+  <div class="container p-3">
+    <div class="d-flex justify-content-center align-items-center">
+      <button id="btn_prepareGame" type="button" class="btn btn-outline-primary mt-3" data-bs-toggle="modal"
+        data-bs-target="#prepareModal">
+        准备开始比赛
+      </button>
+    </div>
+    <div id="prepareModal" class="modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">比赛前的设置</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">类型</label>
+              <div class="col-sm-10">
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                  <input type="radio" class="btn-check" name="ctype" id="ctype_single" data-ctype="single" disabled>
+                  <label class="btn btn-outline-primary" for="ctype_single">单人赛</label>
+                  <input type="radio" class="btn-check" name="ctype" id="ctype_double" data-ctype="double" checked>
+                  <label class="btn btn-outline-primary" for="ctype_double">双人赛</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <label for="staticEmail" class="col-sm-2 col-form-label">选手及站位</label>
+              <div class="col-sm-10 d-flex justify-content-between align-items-center">
+                <div class="d-flex flex-column">
+                  <div class="d-flex justify-content-start align-items-center">
+                    <input id="set_player_leftTop" type="text" class="form-control" placeholder="PlayerA1"
+                      value="PlayerA1">
+                    <input class="form-check-input" type="radio" name="open_player" data-position="leftTop" disabled>
+                  </div>
+                  <div class="d-flex justify-content-start align-items-center">
+                    <input id="set_player_leftBottom" type="text" class="form-control" placeholder="PlayerA2"
+                      value="PlayerA2">
+                    <input class="form-check-input" type="radio" name="open_player" data-position="leftBottom" checked>
+                  </div>
+                </div>
+                <span>VS.</span>
+                <div class="d-flex flex-column">
+                  <div class="d-flex justify-content-start align-items-center">
+                    <input class="form-check-input" type="radio" name="open_player" data-position="rightTop">
+                    <input id="set_player_rightTop" type="text" class="form-control" placeholder="PlayerB1"
+                      value="PlayerB1">
+                  </div>
+                  <div class="d-flex justify-content-start align-items-center">
+                    <input class="form-check-input" type="radio" name="open_player" data-position="rightBottom"
+                      disabled>
+                    <input id="set_player_rightBottom" type="text" class="form-control" placeholder="PlayerB2"
+                      value="PlayerB2">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <label class="col-sm-2 col-form-label">首发</label>
+              <div class="col-sm-10 d-flex justify-content-start align-items-center">
+                <input id="text_open_player" type="text" class="form-control" data-ballin="leftBottom" disabled>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <label for="staticEmail" class="col-sm-2 col-form-label">比分</label>
+              <div class="col-sm-10">
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                  <input type="radio" class="btn-check" name="cpoint" id="cpoint_15" data-cpoint="15" checked>
+                  <label class="btn btn-outline-primary" for="cpoint_15">15</label>
+                  <input type="radio" class="btn-check" name="cpoint" id="cpoint_21" data-cpoint="21">
+                  <label class="btn btn-outline-primary" for="cpoint_21">21</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">怂了，退出</button>
+            <button id="btn_startGame" type="button" data-bs-dismiss="modal" class="btn btn-success">开始吧！</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <div class="d-flex flex-row align-items-center fs-3">
+        <span class="m-3">用时:</span><span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span>
+      </div>
+      <div class="row row-cols-2 m-3">
+        <div class="col border border-success d-flex flex-row justify-content-between p-3">
+          <div id="player_leftTop">PlayerA1</div>
+          <input id="ball_leftTop" class="form-check-input" type="radio" name="ball_in" disabled>
+        </div>
+        <div class="col border border-success d-flex flex-row justify-content-between p-3">
+          <input id="ball_rightTop" class="form-check-input" type="radio" name="ball_in" disabled>
+          <div id="player_rightTop">PlayerB1</div>
+        </div>
+        <div class="col border border-success d-flex flex-row justify-content-between p-3">
+          <div id="player_leftBottom">PlayerA2</div>
+          <input id="ball_leftBottom" class="form-check-input" type="radio" name="ball_in" disabled checked>
+        </div>
+        <div class="col border border-success d-flex flex-row justify-content-between p-3">
+          <input id="ball_rightBottom" class="form-check-input" type="radio" name="ball_in" disabled>
+          <div id="player_rightBottom">PlayerB2</div>
+        </div>
+      </div>
+      <div id="point" class="d-flex flex-row align-items-center m-3">
+        <span name="pointBoard_left" class="card p-3 text-primary">0</span>
+        <span class="m-3">:</span>
+        <span name="pointBoard_right" class="card p-3 text-danger">0</span>
+      </div>
+      <div>
+
+        <button id="btn_endGame" class="btn btn-outline-dark">结束比赛</button>
+        <button id="btn_maxBoard" class="btn btn-outline-danger m-3">放大</button>
+      </div>
+    </div>
+  </div>
+  <div id="big_pointBoard" class="d-flex flex-column justify-content-between align-items-center d-none">
+    <button id="btn_minBoard" type="button" class="btn-close border align-self-start" aria-label="Close"></button>
+
+    <span name="pointBoard_right"
+      class="card p-3 text-danger rotate flex-fill d-flex align-items-center justify-content-center"
+      style="font-size:10rem">0</span>
+    <span class="m-3" style="font-size:5rem">··</span>
+    <span name="pointBoard_left"
+      class="card p-3 text-primary rotate flex-fill d-flex align-items-center justify-content-center"
+      style="font-size:10rem">0</span>
+  </div>
+
+  <footer class="navbar navbar-light justify-content-end">
+    <a class="navbar-brand" href="#">
+      @wxjing
+    </a>
+  </footer>
+
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/popper.js/0.5.1/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+    crossorigin="anonymous"></script>
+  <script>
+
+    var point_left = 0
+    var point_right = 0
+    var hour = 0
+    var min = 0
+    var sec = 0
+    var ctype = 'double'
+    var cpoint = 15
+    var ball_in = 'leftBottom'  //发球权
+    var player_leftTop = 'PlayerA1'
+    var player_leftBottom = 'PlayerA2'
+    var player_rightTop = 'PlayerB1'
+    var player_rightBottom = 'PlayerB2'
+
+    $(function () {
+      ['left', 'right'].forEach(function (side) {
+        $(`[name='pointBoard_${side}']`).prop("disabled", "disabled")
+      })
+    })
+
+    $('#btn_prepareGame').click(function () {
+      init_prepareModal()
+    })
+
+    function init_prepareModal() {
+      $("input:radio[name='ctype'][data-ctype='single']").parent('label').removeClass("active")
+      $("input:radio[name='ctype'][data-ctype='single']").removeAttr("checked")
+      $("input:radio[name='ctype'][data-ctype='double']").parent('label').addClass("active")
+      $("input:radio[name='ctype'][data-ctype='double']").prop("checked", "checked")
+      $('#text_open_player').val($("input:radio[name='open_player']:checked").prev().val())
+    }
+
+    $("input:radio[name='open_player']").click(function () {
+      ball_in = $(this).attr('data-position')
+      console.log(ball_in)
+      var open_player = $(this).prev().val()
+      if (open_player == undefined) {
+        open_player = $(this).next().val()
+      }
+      // console.log(open_player)
+      $('#text_open_player').val(open_player)
+    })
+
+    $('#btn_startGame').click(function () {
+      ctype = $("input:radio[name='ctype']:checked").attr('data-ctype')
+      cpoint = $("input:radio[name='cpoint']:checked").attr('data-cpoint')
+      // console.log(`类型: ${ctype}, 比分: ${cpoint}`)
+      startGame()
+    })
+
+    function startGame() {
+      point_left = 0;
+      point_right = 0;
+      hour = 0
+      min = 0
+      sec = 0
+      $('#btn_prepareGame').prop("disabled", "disabled")
+      init_players()
+      flush_pointBoard()
+      flush_timingBoard()
+      timing()
+      count_pointBoard()
+    }
+
+    function time_str(num) {
+      if (num < 10) {
+        return `0${num}`
+      }
+      else {
+        return `${num}`
+      }
+    }
+
+    function timing() {
+      setInterval(function () {
+        sec += 1
+        if (sec > 59) {
+          sec = 0
+          min += 1
+        }
+        if (min > 59) {
+          min = 0
+          hour += 1
+        }
+        flush_timingBoard()
+      }, 1000)
+    }
+
+    function init_players() {
+      player_leftTop = $('#set_player_leftTop').val()
+      player_leftBottom = $('#set_player_leftBottom').val()
+      player_rightTop = $('#set_player_rightTop').val()
+      player_rightBottom = $('#set_player_rightBottom').val()
+      $('#player_leftTop').text(player_leftTop)
+      $('#player_leftBottom').text(player_leftBottom)
+      $('#player_rightTop').text(player_rightTop)
+      $('#player_rightBottom').text(player_rightBottom)
+
+      //初始化发球
+      $(`#ball_leftBottom`).removeAttr("checked")
+      $(`#ball_${ball_in}`).prop("checked", "checked")
+
+    }
+
+    function flush_timingBoard() {
+      $('#hour').text(time_str(hour))
+      $('#min').text(time_str(min))
+      $('#sec').text(time_str(sec))
+
+    }
+    function flush_pointBoard() {
+      // console.log(`A: ${point_left}  B: ${point_right}`)
+      $("[name='pointBoard_left']").text(point_left)
+      $("[name='pointBoard_right']").text(point_right)
+    }
+
+    function point_add(side) {
+      if (side == 'left') {
+        point_left += 1
+      } else if (side == 'right') {
+        point_right += 1
+      }
+    }
+
+    function count_pointBoard() {
+      ['left', 'right'].forEach(function (side) {
+        $(`[name='pointBoard_${side}']`).click(function () {
+          point_add(side)
+          if (ball_in == `${side}Top` || ball_in == `${side}Bottom`) {
+            changeSameSide(side)
+          } else {
+            changeOpposite(side)
+          }
+          flush_pointBoard()
+        })
+      })
+    }
+
+    // 连赢，换边发球
+    function changeSameSide(side) {
+      var temp_name = $(`#player_${side}Top`).text()
+      $(`#player_${side}Top`).text($(`#player_${side}Bottom`).text())
+      $(`#player_${side}Bottom`).text(temp_name)
+
+      $(`#ball_${ball_in}`).removeAttr("checked")
+      if (ball_in == `${side}Top`) {
+        ball_in = `${side}Bottom`
+      } else if (ball_in == `${side}Bottom`) {
+        ball_in = `${side}Top`
+      }
+      $(`#ball_${ball_in}`).prop("checked", "checked")
+    }
+
+    // 换对手发球
+    function changeOpposite(side) {
+      $(`#ball_${ball_in}`).removeAttr("checked")
+      point = eval(`point_${side}`)
+      if (side == 'left') {
+        if (point % 2 == 0) {
+          ball_in = `${side}Bottom`
+        } else {
+          ball_in = `${side}Top`
+        }
+      } else if (side == 'right') {
+        if (point % 2 == 0) {
+          ball_in = `${side}Top`
+        } else {
+          ball_in = `${side}Bottom`
+        }
+      }
+      $(`#ball_${ball_in}`).prop("checked", "checked")
+    }
+
+    $('#btn_endGame').click(function () {
+      endGame()
+    })
+
+    function endGame() {
+      window.location.reload()
+    }
+
+
+    $('#btn_maxBoard').click(function () {
+      $('#big_pointBoard').removeClass('d-none')
+    })
+
+    $('#btn_minBoard').click(function () {
+      $('#big_pointBoard').addClass('d-none')
+    })
+
+  </script>
+</body>
+
+</html>
