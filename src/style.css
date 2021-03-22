@@ -1,5 +1,7 @@
 .container {
-    height: 82vh;
+    padding: 0;
+    margin: 0;
+    height: 80vh;
 }
 
 #point{

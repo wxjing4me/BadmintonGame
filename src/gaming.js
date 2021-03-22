@@ -1,7 +1,9 @@
-$('#btn_prepareGame').click(function () {
-  init_prepareModal()
-})
 
+var point_left = 0
+var point_right = 0
+var hour = 0
+var min = 0
+var sec = 0
 var ctype = 'double'
 var cpoint = 15
 var ball_in = 'leftBottom'  //发球权
@@ -10,15 +12,14 @@ var player_leftBottom = 'PlayerA2'
 var player_rightTop = 'PlayerB1'
 var player_rightBottom = 'PlayerB2'
 
-$('#btn_startGame').click(function () {
-  ctype = $("input:radio[name='ctype']:checked").attr('data-ctype')
-  cpoint = $("input:radio[name='cpoint']:checked").attr('data-cpoint')
-  // console.log(`类型: ${ctype}, 比分: ${cpoint}`)
-  startGame()
+$(function () {
+  ['left', 'right'].forEach(function (side) {
+    $(`[name='pointBoard_${side}']`).prop("disabled", "disabled")
+  })
 })
 
-$('#btn_endGame').click(function () {
-  endGame()
+$('#btn_prepareGame').click(function () {
+  init_prepareModal()
 })
 
 function init_prepareModal() {
@@ -30,6 +31,8 @@ function init_prepareModal() {
 }
 
 $("input:radio[name='open_player']").click(function () {
+  ball_in = $(this).attr('data-position')
+  console.log(ball_in)
   var open_player = $(this).prev().val()
   if (open_player == undefined) {
     open_player = $(this).next().val()
@@ -38,11 +41,26 @@ $("input:radio[name='open_player']").click(function () {
   $('#text_open_player').val(open_player)
 })
 
-var point_left = 0
-var point_right = 0
-var hour = 0
-var min = 0
-var sec = 0
+$('#btn_startGame').click(function () {
+  ctype = $("input:radio[name='ctype']:checked").attr('data-ctype')
+  cpoint = $("input:radio[name='cpoint']:checked").attr('data-cpoint')
+  // console.log(`类型: ${ctype}, 比分: ${cpoint}`)
+  startGame()
+})
+
+function startGame() {
+  point_left = 0;
+  point_right = 0;
+  hour = 0
+  min = 0
+  sec = 0
+  $('#btn_prepareGame').prop("disabled", "disabled")
+  init_players()
+  flush_pointBoard()
+  flush_timingBoard()
+  timing()
+  count_pointBoard()
+}
 
 function time_str(num) {
   if (num < 10) {
@@ -68,44 +86,20 @@ function timing() {
   }, 1000)
 }
 
-$(function () {
-  init_game()
-})
+function init_players() {
+  player_leftTop = $('#set_player_leftTop').val()
+  player_leftBottom = $('#set_player_leftBottom').val()
+  player_rightTop = $('#set_player_rightTop').val()
+  player_rightBottom = $('#set_player_rightBottom').val()
+  $('#player_leftTop').text(player_leftTop)
+  $('#player_leftBottom').text(player_leftBottom)
+  $('#player_rightTop').text(player_rightTop)
+  $('#player_rightBottom').text(player_rightBottom)
 
-function init_game() {
+  //初始化发球
+  $(`#ball_leftBottom`).removeAttr("checked")
+  $(`#ball_${ball_in}`).prop("checked", "checked")
 
-  point_left = 0;
-  point_right = 0;
-  hour = 0
-  min = 0
-  sec = 0
-  ball_in = 'leftBottom'
-  init_players()
-  flush_pointBoard()
-  flush_timingBoard()
-  timing()
-}
-
-function init_players(){
-  var players = ""
-  var url = location.search; //获取url中"?"符后的字串
-   if (url.indexOf("?") != -1) {    //判断是否有参数
-      var str = url.substr(1); //从第一个字符开始 因为第0个是?号 获取所有除问号的所有符串
-      strs = str.split("=");   //用等号进行分隔 （因为知道只有一个参数 所以直接用等号进分隔 如果有多个参数 要用&号分隔 再用等号进行分隔）
-      players = strs[1];          //直接弹出第一个参数 （如果有多个参数 还要进行循环的）
-   }
-  //  console.log(players)
-   if (players){
-    playersArr = players.split("|")
-    player_leftTop=playersArr[0]
-    player_leftBottom=playersArr[1]
-    player_rightTop=playersArr[2]
-    player_rightBottom=playersArr[3]
-    $('#player_leftTop').text(player_leftTop)
-    $('#player_leftBottom').text(player_leftBottom)
-    $('#player_rightTop').text(player_rightTop)
-    $('#player_rightBottom').text(player_rightBottom)
-  }
 }
 
 function flush_timingBoard() {
@@ -128,18 +122,19 @@ function point_add(side) {
   }
 }
 
-['left', 'right'].forEach(function (side) {
-  $(`[name='pointBoard_${side}']`).click(function () {
-    point_add(side)
-    if (ball_in == `${side}Top` || ball_in == `${side}Bottom`) {
-      changeSameSide(side)
-    } else {
-      changeOpposite(side)
-    }
-    flush_pointBoard()
+function count_pointBoard() {
+  ['left', 'right'].forEach(function (side) {
+    $(`[name='pointBoard_${side}']`).click(function () {
+      point_add(side)
+      if (ball_in == `${side}Top` || ball_in == `${side}Bottom`) {
+        changeSameSide(side)
+      } else {
+        changeOpposite(side)
+      }
+      flush_pointBoard()
+    })
   })
-})
-
+}
 
 // 连赢，换边发球
 function changeSameSide(side) {
@@ -176,15 +171,14 @@ function changeOpposite(side) {
   $(`#ball_${ball_in}`).prop("checked", "checked")
 }
 
-
-function startGame() {
-  var players = $('#player1').val()+'|'+$('#player2').val()+'|'+$('#player3').val()+'|'+$('#player4').val()
-    window.location.href = `game_ing.html?players=${players}`
-}
+$('#btn_endGame').click(function () {
+  endGame()
+})
 
 function endGame() {
-  window.location.href = 'index.html'
+  window.location.reload()
 }
+
 
 $('#btn_maxBoard').click(function () {
   $('#big_pointBoard').removeClass('d-none')

@@ -5,8 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-  <title>这该死的胜负欲</title>
-  <link rel="stylesheet" href="dist/bootstrap.min.css">
+  <title>羽毛球大战</title>
+  <link rel="stylesheet" href="dist/bootstrap-5.0.min.css">
   <link rel="stylesheet" href="src/style.css">
 
 </head>
@@ -18,90 +18,16 @@
       <div class="alert alert-primary mt-3" role="alert">
         这该死的胜负欲！
       </div>
-      <button id="btn_prepareGame" type="button" class="btn btn-outline-primary mt-3" data-bs-toggle="modal"
-        data-bs-target="#prepareModal">
+      <a href="gaming.html" type="button" class="btn btn-outline-primary mt-3">
         准备开始比赛
-      </button>
-      <div id="prepareModal" class="modal" tabindex="-1">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">比赛前的设置</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <div class="row">
-                <label for="staticEmail" class="col-sm-2 col-form-label">类型</label>
-                <div class="col-sm-10">
-                  <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="ctype" id="ctype_single" data-ctype="single">
-                    <label class="btn btn-outline-primary" for="ctype_single">单人赛</label>
-                    <input type="radio" class="btn-check" name="ctype" id="ctype_double" data-ctype="double" checked>
-                    <label class="btn btn-outline-primary" for="ctype_double">双人赛</label>
-                  </div>
-                </div>
-              </div>
-              <div class="row mt-3">
-                <label for="staticEmail" class="col-sm-2 col-form-label">选手及站位</label>
-                <div class="col-sm-10 d-flex justify-content-between align-items-center">
-                  <div class="d-flex flex-column">
-                    <div class="d-flex justify-content-start align-items-center">
-                      <input id="player1" type="text" class="form-control" placeholder="PlayerA1" value="PlayerA1">
-                      <input class="form-check-input" type="radio" name="open_player" id="flexRadioDefault1" disabled>
-                    </div>
-                    <div class="d-flex justify-content-start align-items-center">
-                      <input id="player2" type="text" class="form-control" placeholder="PlayerA2" value="PlayerA2">
-                      <input class="form-check-input" type="radio" name="open_player" id="flexRadioDefault1" checked>
-                    </div>
-                  </div>
-                  <span>VS.</span>
-                  <div class="d-flex flex-column">
-                    <div class="d-flex justify-content-start align-items-center">
-                      <input class="form-check-input" type="radio" name="open_player" id="flexRadioDefault1">
-                      <input id="player3" type="text" class="form-control" placeholder="PlayerB1" value="PlayerB1">
-                    </div>
-                    <div class="d-flex justify-content-start align-items-center">
-                      <input class="form-check-input" type="radio" name="open_player" id="flexRadioDefault1" disabled>
-                      <input id="player4" type="text" class="form-control" placeholder="PlayerB2" value="PlayerB2">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row mt-3">
-                <label class="col-sm-2 col-form-label">首发</label>
-                <div class="col-sm-10 d-flex justify-content-start align-items-center">
-                  <input id="text_open_player" type="text" class="form-control" disabled>
-                </div>
-              </div>
-              <div class="row mt-3">
-                <label for="staticEmail" class="col-sm-2 col-form-label">比分</label>
-                <div class="col-sm-10">
-                  <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="cpoint" id="cpoint_15" data-cpoint="15" checked>
-                    <label class="btn btn-outline-primary" for="cpoint_15">15</label>
-                    <input type="radio" class="btn-check" name="cpoint" id="cpoint_21" data-cpoint="21">
-                    <label class="btn btn-outline-primary" for="cpoint_21">21</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">怂了，退出</button>
-              <button id="btn_startGame" type="button" class="btn btn-success">开始吧！</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      </a>
     </div>
-
-
-
   </div>
 
   <script src="dist/jquery-1.11.3.min.js"></script>
   <script src="dist/popper-1.14.7.min.js"></script>
-  <script src="dist/bootstrap.min.js"></script>
-  <script src="src/action.js"></script>
+  <script src="dist/bootstrap-5.0.min.js"></script>
+  <script src="src/index.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,164 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  <title>羽毛球大战</title>
+  <link rel="stylesheet" href="dist/bootstrap-5.0.min.css">
+  <link rel="stylesheet" href="src/style.css">
+
+</head>
+
+<body>
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="images/badminton.png" alt="" width="30" height="30" class="d-inline-block align-top">
+        羽毛球大战 - 这该死的胜负欲！
+      </a>
+    </div>
+  </nav>
+
+  <div class="container p-3">
+    <div class="d-flex justify-content-center align-items-center">
+      <button id="btn_prepareGame" type="button" class="btn btn-outline-primary mt-3" data-bs-toggle="modal"
+        data-bs-target="#prepareModal">
+        准备开始比赛
+      </button>
+    </div>
+    <div id="prepareModal" class="modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">比赛前的设置</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">类型</label>
+              <div class="col-sm-10">
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                  <input type="radio" class="btn-check" name="ctype" id="ctype_single" data-ctype="single" disabled>
+                  <label class="btn btn-outline-primary" for="ctype_single">单人赛</label>
+                  <input type="radio" class="btn-check" name="ctype" id="ctype_double" data-ctype="double" checked>
+                  <label class="btn btn-outline-primary" for="ctype_double">双人赛</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <label for="staticEmail" class="col-sm-2 col-form-label">选手及站位</label>
+              <div class="col-sm-10 d-flex justify-content-between align-items-center">
+                <div class="d-flex flex-column">
+                  <div class="d-flex justify-content-start align-items-center">
+                    <input id="set_player_leftTop" type="text" class="form-control" placeholder="PlayerA1"
+                      value="PlayerA1">
+                    <input class="form-check-input" type="radio" name="open_player" data-position="leftTop" disabled>
+                  </div>
+                  <div class="d-flex justify-content-start align-items-center">
+                    <input id="set_player_leftBottom" type="text" class="form-control" placeholder="PlayerA2"
+                      value="PlayerA2">
+                    <input class="form-check-input" type="radio" name="open_player" data-position="leftBottom" checked>
+                  </div>
+                </div>
+                <span>VS.</span>
+                <div class="d-flex flex-column">
+                  <div class="d-flex justify-content-start align-items-center">
+                    <input class="form-check-input" type="radio" name="open_player" data-position="rightTop">
+                    <input id="set_player_rightTop" type="text" class="form-control" placeholder="PlayerB1"
+                      value="PlayerB1">
+                  </div>
+                  <div class="d-flex justify-content-start align-items-center">
+                    <input class="form-check-input" type="radio" name="open_player" data-position="rightBottom"
+                      disabled>
+                    <input id="set_player_rightBottom" type="text" class="form-control" placeholder="PlayerB2"
+                      value="PlayerB2">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <label class="col-sm-2 col-form-label">首发</label>
+              <div class="col-sm-10 d-flex justify-content-start align-items-center">
+                <input id="text_open_player" type="text" class="form-control" data-ballin="leftBottom" disabled>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <label for="staticEmail" class="col-sm-2 col-form-label">比分</label>
+              <div class="col-sm-10">
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                  <input type="radio" class="btn-check" name="cpoint" id="cpoint_15" data-cpoint="15" checked>
+                  <label class="btn btn-outline-primary" for="cpoint_15">15</label>
+                  <input type="radio" class="btn-check" name="cpoint" id="cpoint_21" data-cpoint="21">
+                  <label class="btn btn-outline-primary" for="cpoint_21">21</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">怂了，退出</button>
+            <button id="btn_startGame" type="button" data-bs-dismiss="modal" class="btn btn-success">开始吧！</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <div class="d-flex flex-row align-items-center fs-3">
+        <span class="m-3">用时:</span><span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span>
+      </div>
+      <div class="row row-cols-2 m-3">
+        <div class="col border border-success d-flex flex-row justify-content-between p-3">
+          <div id="player_leftTop">PlayerA1</div>
+          <input id="ball_leftTop" class="form-check-input" type="radio" name="ball_in" disabled>
+        </div>
+        <div class="col border border-success d-flex flex-row justify-content-between p-3">
+          <input id="ball_rightTop" class="form-check-input" type="radio" name="ball_in" disabled>
+          <div id="player_rightTop">PlayerB1</div>
+        </div>
+        <div class="col border border-success d-flex flex-row justify-content-between p-3">
+          <div id="player_leftBottom">PlayerA2</div>
+          <input id="ball_leftBottom" class="form-check-input" type="radio" name="ball_in" disabled checked>
+        </div>
+        <div class="col border border-success d-flex flex-row justify-content-between p-3">
+          <input id="ball_rightBottom" class="form-check-input" type="radio" name="ball_in" disabled>
+          <div id="player_rightBottom">PlayerB2</div>
+        </div>
+      </div>
+      <div id="point" class="d-flex flex-row align-items-center m-3">
+        <span name="pointBoard_left" class="card p-3 text-primary">0</span>
+        <span class="m-3">:</span>
+        <span name="pointBoard_right" class="card p-3 text-danger">0</span>
+      </div>
+      <div>
+
+        <button id="btn_endGame" class="btn btn-outline-dark">结束比赛</button>
+        <button id="btn_maxBoard" class="btn btn-outline-danger m-3">放大</button>
+      </div>
+    </div>
+  </div>
+  <div id="big_pointBoard" class="d-flex flex-column justify-content-between align-items-center d-none">
+    <button id="btn_minBoard" type="button" class="btn-close border align-self-start" aria-label="Close"></button>
+
+    <span name="pointBoard_right"
+      class="card p-3 text-danger rotate flex-fill d-flex align-items-center justify-content-center"
+      style="font-size:10rem">0</span>
+    <span class="m-3" style="font-size:5rem">··</span>
+    <span name="pointBoard_left"
+      class="card p-3 text-primary rotate flex-fill d-flex align-items-center justify-content-center"
+      style="font-size:10rem">0</span>
+  </div>
+
+  <footer class="navbar navbar-light justify-content-end">
+    <a class="navbar-brand" href="#">
+      @wxjing
+    </a>
+  </footer>
+
+  <script src="dist/jquery-1.11.3.min.js"></script>
+  <script src="dist/popper-1.14.7.min.js"></script>
+  <script src="dist/bootstrap-5.0.min.js"></script>
+  <script src="src/gaming.js"></script>
+</body>
+
+</html>
